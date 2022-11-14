@@ -1,3 +1,5 @@
+pub use crate::piece::*;
+
 use bit_set::BitSet;
 
 pub struct Board {
@@ -64,10 +66,13 @@ impl Default for Board {
 
 impl Board {
     pub fn print_board(&self) {
-        println!("White Pawns cpacity: {}", self.white_pawns.capacity());
-
-        for x in self.white_pawns.iter() {
-            println!("{}", x);
+        println!("A B C D E F G H");
+        for i in 0..8 {
+            for j in 0..8 {
+                let piece = Piece::default();
+                println!("{:?}", piece);
+            }
+            println!(" {}", 8-i);
         }
     }
 }
