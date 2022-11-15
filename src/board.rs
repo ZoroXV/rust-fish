@@ -135,8 +135,8 @@ impl Board {
         }
 
         Piece {
-            color: color,
-            kind: kind,
+            color,
+            kind,
         }
     }
 }
