@@ -134,9 +134,6 @@ impl Board {
             kind = PieceKind::Empty;
         }
 
-        Piece {
-            color,
-            kind,
-        }
+        Piece { color, kind }
     }
 }
