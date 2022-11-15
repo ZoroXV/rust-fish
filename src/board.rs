@@ -1,3 +1,4 @@
+pub use crate::fen::*;
 pub use crate::piece::*;
 
 use bit_set::BitSet;
@@ -21,7 +22,7 @@ pub struct Board {
 
 impl Default for Board {
     fn default() -> Board {
-        let mut b = Board {
+        Board {
             white_pawns: BitSet::with_capacity(64),
             white_knights: BitSet::with_capacity(64),
             white_bishops: BitSet::with_capacity(64),
@@ -35,37 +36,28 @@ impl Default for Board {
             black_rooks: BitSet::with_capacity(64),
             black_queens: BitSet::with_capacity(64),
             black_king: BitSet::with_capacity(64),
-        };
-
-        for i in 8..16 {
-            b.white_pawns.insert(i);
         }
-        b.white_knights.insert(1);
-        b.white_knights.insert(6);
-        b.white_bishops.insert(2);
-        b.white_bishops.insert(5);
-        b.white_rooks.insert(0);
-        b.white_rooks.insert(7);
-        b.white_queens.insert(3);
-        b.white_king.insert(4);
-
-        for i in 48..56 {
-            b.black_pawns.insert(i);
-        }
-        b.black_knights.insert(57);
-        b.black_knights.insert(62);
-        b.black_bishops.insert(58);
-        b.black_bishops.insert(61);
-        b.black_rooks.insert(56);
-        b.black_rooks.insert(63);
-        b.black_queens.insert(59);
-        b.black_king.insert(60);
-
-        b
     }
 }
 
 impl Board {
+    pub fn from_fen(fen_string: &str) -> Result<Self, &'static str> {
+        let fen_blocks: Vec<&str> = fen_string.split(' ').collect();
+        if fen_blocks.len() != 6 {
+            return Err("Invalid FEN String: Missing informations");
+        }
+
+        println!("Next Player to play: {}", fen_blocks[1]);
+        println!("Castling Infos: {}", fen_blocks[2]);
+        println!("En passant cell: {}", fen_blocks[3]);
+        println!("Half-move count: {}", fen_blocks[4]);
+        println!("Full-move count: {}", fen_blocks[5]);
+
+        let board_rows: Vec<&str> = fen_blocks[0].split('/').collect();
+
+        Ok(Self::default())
+    }
+
     pub fn print_board(&self) {
         println!("A B C D E F G H");
         for i in (0..8).rev() {

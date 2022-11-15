@@ -1,8 +1,13 @@
 mod board;
+mod fen;
 mod piece;
 
-fn main() {
-    let b = board::Board::default();
+const DEFAULT_FEN_STRING: &str = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
-    b.print_board();
+fn main() {
+    let board = board::Board::from_fen(DEFAULT_FEN_STRING);
+    match board {
+        Ok(board) => board.print_board(),
+        Err(e) => panic!("{}", e),
+    }
 }
