@@ -42,6 +42,8 @@ impl Default for Board {
 
 impl Board {
     pub fn from_fen(fen_string: &str) -> Result<Self, &'static str> {
+        let mut board = Self::default();
+
         let fen_blocks: Vec<&str> = fen_string.split(' ').collect();
         if fen_blocks.len() != 6 {
             return Err("Invalid FEN String: Missing informations");
@@ -53,15 +55,46 @@ impl Board {
         println!("Half-move count: {}", fen_blocks[4]);
         println!("Full-move count: {}", fen_blocks[5]);
 
-        let board_rows: Vec<&str> = fen_blocks[0].split('/').collect();
+        let rows: Vec<&str> = fen_blocks[0].split('/').collect();
+        let mut i = 0;
+        let mut j = 0;
+        for row in rows.iter().rev() {
+            j = 0;
 
-        Ok(Self::default())
+            for c in row.chars() {
+                if c.is_digit(10) {
+                    let empty_cells = c.to_digit(10).unwrap();
+                    j += empty_cells;
+                } else {
+                    match c {
+                        'p' => board.white_pawns.insert(i * 8 + j as usize),
+                        'n' => board.white_knights.insert(i * 8 + j as usize),
+                        'b' => board.white_bishops.insert(i * 8 + j as usize),
+                        'r' => board.white_rooks.insert(i * 8 + j as usize),
+                        'q' => board.white_queens.insert(i * 8 + j as usize),
+                        'k' => board.white_king.insert(i * 8 + j as usize),
+                        'P' => board.black_pawns.insert(i * 8 + j as usize),
+                        'N' => board.black_knights.insert(i * 8 + j as usize),
+                        'B' => board.black_bishops.insert(i * 8 + j as usize),
+                        'R' => board.black_rooks.insert(i * 8 + j as usize),
+                        'Q' => board.black_queens.insert(i * 8 + j as usize),
+                        'K' => board.black_king.insert(i * 8 + j as usize),
+                        _ => return Err("Invalid FEN String."),
+                    };
+                }
+                j += 1;
+            }
+
+            i += 1;
+        }
+
+        Ok(board)
     }
 
     pub fn print_board(&self) {
         println!("A B C D E F G H");
-        for i in (0..8).rev() {
-            for j in (0..8).rev() {
+        for i in 0..8 {
+            for j in 0..8 {
                 let piece = self.index(i * 8 + j);
 
                 let cell = format!("{} ", piece.get_char());
