@@ -70,9 +70,9 @@ impl Board {
         for i in 0..8 {
             for j in 0..8 {
                 let piece = Piece::default();
-                println!("{:?}", piece);
+                print!("{} ", piece);
             }
-            println!(" {}", 8-i);
+            println!(" {}", 8 - i);
         }
     }
 }

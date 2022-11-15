@@ -1,31 +1,52 @@
+use std::fmt;
+
 #[derive(Debug)]
 pub struct Piece {
     color: PieceColor,
-    kind: PieceKind
+    kind: PieceKind,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum PieceColor {
-    NONE,
-    WHITE,
-    BLACK
+    Empty,
+    White,
+    Black,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 enum PieceKind {
-    PAWN,
-    KNIGHT,
-    BISHOP,
-    ROOK,
-    QUEEN,
-    KING
+    Pawn,
+    Knight,
+    Bishop,
+    Rook,
+    Queen,
+    King,
 }
 
 impl Default for Piece {
     fn default() -> Piece {
         Piece {
-            color: PieceColor::NONE,
-            kind: PieceKind::PAWN
+            color: PieceColor::Empty,
+            kind: PieceKind::Pawn,
+        }
+    }
+}
+
+impl fmt::Display for Piece {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let c = match &self.kind {
+            pawn => "P",
+            knight => "N",
+            bishop => "B",
+            rook => "R",
+            queen => "Q",
+            king => "K",
+        };
+
+        if self.color == PieceColor::Empty {
+            write!(f, ".")
+        } else {
+            write!(f, "{}", c)
         }
     }
 }
