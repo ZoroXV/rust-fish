@@ -68,9 +68,9 @@ impl Default for Board {
 impl Board {
     pub fn print_board(&self) {
         println!("A B C D E F G H");
-        for i in 0..8 {
-            for j in 0..8 {
-                let piece = Piece::default();
+        for i in (0..8).rev() {
+            for j in (0..8).rev() {
+                let piece = self.index(i * 8 + j);
 
                 let cell = format!("{} ", piece.get_char());
                 let cell = if piece.color == PieceColor::White {
@@ -81,12 +81,62 @@ impl Board {
                 let cell = if (i + j) % 2 == 0 {
                     cell.on_blue()
                 } else {
-                    cell.on_white()
+                    cell.on_bright_white()
                 };
 
                 print!("{}", cell);
             }
             println!(" {}", 8 - i);
+        }
+    }
+
+    fn index(&self, idx: usize) -> Piece {
+        let color: PieceColor;
+        let kind: PieceKind;
+        if self.white_pawns.contains(idx) {
+            color = PieceColor::White;
+            kind = PieceKind::Pawn;
+        } else if self.white_knights.contains(idx) {
+            color = PieceColor::White;
+            kind = PieceKind::Knight;
+        } else if self.white_bishops.contains(idx) {
+            color = PieceColor::White;
+            kind = PieceKind::Bishop;
+        } else if self.white_rooks.contains(idx) {
+            color = PieceColor::White;
+            kind = PieceKind::Rook;
+        } else if self.white_queens.contains(idx) {
+            color = PieceColor::White;
+            kind = PieceKind::Queen;
+        } else if self.white_king.contains(idx) {
+            color = PieceColor::White;
+            kind = PieceKind::King;
+        } else if self.black_pawns.contains(idx) {
+            color = PieceColor::Black;
+            kind = PieceKind::Pawn;
+        } else if self.black_knights.contains(idx) {
+            color = PieceColor::Black;
+            kind = PieceKind::Knight;
+        } else if self.black_bishops.contains(idx) {
+            color = PieceColor::Black;
+            kind = PieceKind::Bishop;
+        } else if self.black_rooks.contains(idx) {
+            color = PieceColor::Black;
+            kind = PieceKind::Rook;
+        } else if self.black_queens.contains(idx) {
+            color = PieceColor::Black;
+            kind = PieceKind::Queen;
+        } else if self.black_king.contains(idx) {
+            color = PieceColor::Black;
+            kind = PieceKind::King;
+        } else {
+            color = PieceColor::White;
+            kind = PieceKind::Empty;
+        }
+
+        Piece {
+            color: color,
+            kind: kind,
         }
     }
 }
