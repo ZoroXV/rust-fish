@@ -1,20 +1,18 @@
-use std::fmt;
-
-#[derive(Debug)]
+#[derive(Copy, Clone)]
 pub struct Piece {
-    color: PieceColor,
-    kind: PieceKind,
+    pub color: PieceColor,
+    pub kind: PieceKind,
 }
 
-#[derive(Debug, PartialEq)]
-enum PieceColor {
-    Empty,
+#[derive(Copy, Clone, PartialEq, Eq)]
+pub enum PieceColor {
     White,
     Black,
 }
 
-#[derive(Debug, PartialEq)]
-enum PieceKind {
+#[derive(Copy, Clone, PartialEq, Eq)]
+pub enum PieceKind {
+    Empty,
     Pawn,
     Knight,
     Bishop,
@@ -26,27 +24,22 @@ enum PieceKind {
 impl Default for Piece {
     fn default() -> Piece {
         Piece {
-            color: PieceColor::Empty,
-            kind: PieceKind::Pawn,
+            color: PieceColor::White,
+            kind: PieceKind::Empty,
         }
     }
 }
 
-impl fmt::Display for Piece {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let c = match &self.kind {
-            pawn => "P",
-            knight => "N",
-            bishop => "B",
-            rook => "R",
-            queen => "Q",
-            king => "K",
-        };
-
-        if self.color == PieceColor::Empty {
-            write!(f, ".")
-        } else {
-            write!(f, "{}", c)
+impl Piece {
+    pub fn get_char(self) -> &'static str {
+        match self.kind {
+            PieceKind::Pawn => "\u{265F}",
+            PieceKind::Knight => "\u{265E}",
+            PieceKind::Bishop => "\u{265D}",
+            PieceKind::Rook => "\u{265C}",
+            PieceKind::Queen => "\u{265B}",
+            PieceKind::King => "\u{265A}",
+            _ => " ",
         }
     }
 }

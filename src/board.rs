@@ -1,6 +1,7 @@
 pub use crate::piece::*;
 
 use bit_set::BitSet;
+use colored::Colorize;
 
 pub struct Board {
     white_pawns: BitSet,
@@ -70,7 +71,20 @@ impl Board {
         for i in 0..8 {
             for j in 0..8 {
                 let piece = Piece::default();
-                print!("{} ", piece);
+
+                let cell = format!("{} ", piece.get_char());
+                let cell = if piece.color == PieceColor::White {
+                    cell.white()
+                } else {
+                    cell.black()
+                };
+                let cell = if (i + j) % 2 == 0 {
+                    cell.on_blue()
+                } else {
+                    cell.on_white()
+                };
+
+                print!("{}", cell);
             }
             println!(" {}", 8 - i);
         }
