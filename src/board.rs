@@ -159,10 +159,22 @@ impl Board {
             color = PieceColor::Black;
             kind = PieceKind::King;
         } else {
-            color = PieceColor::White;
-            kind = PieceKind::Empty;
+            return Piece::default();
         }
 
         Piece { color, kind }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn fen_empty_board() {
+        let b = Board::from_fen("8/8/8/8/8/8/8/8 w - - 0 1").unwrap();
+        for i in 0..64 {
+            assert_eq!(b.index(i), Piece::default());
+        }
     }
 }
