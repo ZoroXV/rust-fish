@@ -56,6 +56,10 @@ impl Board {
         println!("Full-move count: {}", fen_blocks[5]);
 
         let rows: Vec<&str> = fen_blocks[0].split('/').collect();
+        if rows.len() != 8 {
+            return Err("Invalid FEN String. Board must have exactly.")
+        }
+
         let mut i = 0;
         let mut j = 0;
         for row in rows.iter().rev() {
