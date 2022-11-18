@@ -60,13 +60,11 @@ impl Board {
             return Err("Invalid FEN String. Board must have exactly.");
         }
 
-        let mut i = 0;
-        let mut j = 0;
-        for row in rows {
-            j = 0;
+        for (i, row) in rows.into_iter().enumerate() {
+            let mut j = 0;
 
             for c in row.chars() {
-                if c.is_digit(10) {
+                if c.is_ascii_digit() {
                     let empty_cells = c.to_digit(10).unwrap();
                     j += empty_cells;
                 } else {
@@ -88,8 +86,6 @@ impl Board {
                     j += 1;
                 }
             }
-
-            i += 1;
         }
 
         Ok(board)
