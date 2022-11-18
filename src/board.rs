@@ -71,18 +71,18 @@ impl Board {
                     j += empty_cells;
                 } else {
                     match c {
-                        'p' => board.white_pawns.insert(i * 8 + j as usize),
-                        'n' => board.white_knights.insert(i * 8 + j as usize),
-                        'b' => board.white_bishops.insert(i * 8 + j as usize),
-                        'r' => board.white_rooks.insert(i * 8 + j as usize),
-                        'q' => board.white_queens.insert(i * 8 + j as usize),
-                        'k' => board.white_king.insert(i * 8 + j as usize),
-                        'P' => board.black_pawns.insert(i * 8 + j as usize),
-                        'N' => board.black_knights.insert(i * 8 + j as usize),
-                        'B' => board.black_bishops.insert(i * 8 + j as usize),
-                        'R' => board.black_rooks.insert(i * 8 + j as usize),
-                        'Q' => board.black_queens.insert(i * 8 + j as usize),
-                        'K' => board.black_king.insert(i * 8 + j as usize),
+                        'P' => board.white_pawns.insert(i * 8 + j as usize),
+                        'N' => board.white_knights.insert(i * 8 + j as usize),
+                        'B' => board.white_bishops.insert(i * 8 + j as usize),
+                        'R' => board.white_rooks.insert(i * 8 + j as usize),
+                        'Q' => board.white_queens.insert(i * 8 + j as usize),
+                        'K' => board.white_king.insert(i * 8 + j as usize),
+                        'p' => board.black_pawns.insert(i * 8 + j as usize),
+                        'n' => board.black_knights.insert(i * 8 + j as usize),
+                        'b' => board.black_bishops.insert(i * 8 + j as usize),
+                        'r' => board.black_rooks.insert(i * 8 + j as usize),
+                        'q' => board.black_queens.insert(i * 8 + j as usize),
+                        'k' => board.black_king.insert(i * 8 + j as usize),
                         _ => return Err("Invalid FEN String."),
                     };
                     j += 1;
