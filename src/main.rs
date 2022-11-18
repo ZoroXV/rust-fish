@@ -11,12 +11,4 @@ fn main() {
         Ok(board) => board.print_board(),
         Err(e) => panic!("{}", e),
     }
-
-    let fen_example = "8/8/8/4p1K1/2k1P3/8/8/8 b - - 0 1";
-    println!("FEN String: {}", fen_example);
-    let board = board::Board::from_fen(fen_example);
-    match board {
-        Ok(board) => board.print_board(),
-        Err(e) => panic!("{}", e),
-    }
 }

@@ -57,7 +57,7 @@ impl Board {
 
         let rows: Vec<&str> = fen_blocks[0].split('/').collect();
         if rows.len() != 8 {
-            return Err("Invalid FEN String. Board must have exactly.")
+            return Err("Invalid FEN String. Board must have exactly.");
         }
 
         let mut i = 0;
