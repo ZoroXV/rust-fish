@@ -62,7 +62,7 @@ impl Board {
 
         let mut i = 0;
         let mut j = 0;
-        for row in rows.iter().rev() {
+        for row in rows {
             j = 0;
 
             for c in row.chars() {
@@ -85,8 +85,8 @@ impl Board {
                         'K' => board.black_king.insert(i * 8 + j as usize),
                         _ => return Err("Invalid FEN String."),
                     };
+                    j += 1;
                 }
-                j += 1;
             }
 
             i += 1;
